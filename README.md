@@ -45,6 +45,8 @@ Options:
 
 - `rate-window` stands for error range percentage between `min_rate`/`max_rate` and the btc increase percentage.
 
+## Example
+
 ```
 $ python btc_tracker.py mxn --min-rate 30 --max-rate 30 --rate-window 2 --times 3
 
