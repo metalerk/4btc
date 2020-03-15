@@ -44,7 +44,7 @@ def main(currency, interval, alert, min_rate, max_rate, rate_window, times):
         previous_rate = btc_tracker.get_currency_price(currency, just_rate=True)['rate']
         first_rate = previous_rate
         print('[!] - Tracking from CoinDesk -')
-        print(f"[-] INITIAL: ${first_rate:,} {currency}   ====   {dt.now().strftime('%a %d-%m-%Y %H:%M:%S %Z')}\n\n")
+        print(f"[*] INITIAL: ${first_rate:,} {currency}   ====   {dt.now().strftime('%a %d-%m-%Y %H:%M:%S %Z')}\n\n")
         _flag = True
         counter = 0
         previous_rate_percentage = 1
