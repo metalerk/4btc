@@ -40,21 +40,26 @@ def main(currency, interval, alert, min_rate, max_rate, rate_window, times):
         if not btc_tracker.is_valid_currency(currency):
             print(f'[-] Invalid currency \'{currency}\'.\n')
             sys.exit(1)
-        first_rate = btc_tracker.get_currency_price(currency, just_rate=True)['rate']
+        previous_rate = btc_tracker.get_currency_price(currency, just_rate=True)['rate']
         _flag = True
         counter = 0
+        previous_rate_percentage = 1
         while(_flag):
             obj = btc_tracker.get_currency_price(currency)
-            increase_rate_percentage = rate_diff_percentage(first_rate, obj['rate'], percentage=True)
-            if increase_rate_percentage < 0 and min_rate is not None:
-                if abs(abs(increase_rate_percentage) - abs(min_rate)) <= rate_window:
-                    print(f'\n=============== [!] Alert!!! BTC has DECREASED   % {increase_rate_percentage} ===============\n')
-            if increase_rate_percentage > 0 and max_rate is not None:
-                if abs(abs(increase_rate_percentage) - abs(min_rate)) <= rate_window:
-                    print(f'\n=============== [!] Alert!!! BTC has INCREASED   % {increase_rate_percentage} ===============\n')
-            print(f"[+] {obj['timestamp'].strftime('%a %d-%m-%Y %H:%M:%S%f %Z')} ---- 1 BTC => ${obj['rate']:,} {obj['currency_code']} - INCREASE RATE   % {increase_rate_percentage}")
-            print('·····························································································')
-            
+            increase_rate_percentage = rate_diff_percentage(previous_rate, obj['rate'], percentage=True)
+            previous_rate = obj['rate']
+            if increase_rate_percentage != 0 and increase_rate_percentage != previous_rate_percentage:
+                updown_indicator = '+' if increase_rate_percentage >= 0 else '-'
+                increase_decrease_indicator = 'INCREASE' if updown_indicator == '+' else 'DECREASE'
+                print(f"[{updown_indicator}] {obj['timestamp'].strftime('%a %d-%m-%Y %H:%M:%S%f %Z')} --- 1 BTC => ${obj['rate']:,} {obj['currency_code']} - {increase_decrease_indicator} RATE  % {increase_rate_percentage}")
+                print('·····························································································')
+                if increase_rate_percentage < 0 and min_rate is not None:
+                    if abs(abs(increase_rate_percentage) - abs(min_rate)) <= rate_window:
+                        print(f'\n=============== [!] Alert!!! BTC has DECREASED   % {increase_rate_percentage} ===============\n')
+                if increase_rate_percentage > 0 and max_rate is not None:
+                    if abs(abs(increase_rate_percentage) - abs(min_rate)) <= rate_window:
+                        print(f'\n=============== [!] Alert!!! BTC has INCREASED   % {increase_rate_percentage} ===============\n')
+            previous_rate_percentage = increase_rate_percentage
             if times > -1:
                 if counter < times - 1:
                     counter += 1
