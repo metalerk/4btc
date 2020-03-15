@@ -61,7 +61,7 @@ def main(currency, interval, alert, min_rate, max_rate, rate_window, times):
                 print(f"[{updown}] CURRENT PROFIT: ${(obj['rate'] - previous_rate):,} {currency}")
                 print(f"[{updown}] GLOBAL PROFIT: ${(obj['rate'] - first_rate):,} {currency}")
                 print(f"[{updown}] CURRENT BALANCE  % {increase_rate_percentage:,}")
-                print(f"[{updown}] GLOBAL BALACE  % {first_rate_percentage:,}")
+                print(f"[{updown}] GLOBAL BALANCE  % {first_rate_percentage:,}")
                 print('·········································································')
                 if increase_rate_percentage < 0 and min_rate is not None:
                     if abs(abs(first_rate_percentage) - abs(min_rate)) <= rate_window:
