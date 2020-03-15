@@ -64,6 +64,7 @@ def main(currency, interval, alert, min_rate, max_rate, rate_window, times):
     except KeyboardInterrupt:
         print('Bye!')
     except KeyError as e:
+        print(f'[-] Error: {e}')
 
 if __name__ == "__main__":
     main()
