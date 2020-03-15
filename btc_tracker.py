@@ -44,7 +44,7 @@ def main(currency, interval, alert, min_rate, max_rate, rate_window, times):
         previous_rate = btc_tracker.get_currency_price(currency, just_rate=True)['rate']
         first_rate = previous_rate
         print('[!] - Tracking from CoinDesk -')
-        print(f"[-] INITIAL: ${first_rate:,} {currency}   ====   {dt.now().strftime('%a %d-%m-%Y %H:%M:%S%f %Z')}\n\n")
+        print(f"[-] INITIAL: ${first_rate:,} {currency}   ====   {dt.now().strftime('%a %d-%m-%Y %H:%M:%S %Z')}\n\n")
         _flag = True
         counter = 0
         previous_rate_percentage = 1
@@ -55,7 +55,7 @@ def main(currency, interval, alert, min_rate, max_rate, rate_window, times):
             if increase_rate_percentage != 0 and increase_rate_percentage != previous_rate_percentage:
                 updown_indicator = lambda x: '+' if x >= 0 else '-'
                 updown = updown_indicator(increase_rate_percentage)
-                print(f"[{updown}] {obj['timestamp'].strftime('%a %d-%m-%Y %H:%M:%S%f %Z')}\n")
+                print(f"[{updown}] {obj['timestamp'].strftime('%a %d-%m-%Y %H:%M:%S %Z')}\n")
                 print(f"[{updown}] INITIAL RATE: ${first_rate:,} {currency}")
                 print(f"[{updown}] CURRENT RATE: ${obj['rate']:,} {currency}")
                 print(f"[{updown}] CURRENT PROFIT: ${(obj['rate'] - previous_rate):,} {currency}")
